@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>Ajouter à l'agenda</title>
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:420px;margin:12vh auto;padding:0 24px;text-align:center;color:#1c1d22;background:#f5f5f7}
+@media(prefers-color-scheme:dark){body{color:#eee;background:#111412}}
+a.b{display:inline-block;margin-top:16px;padding:14px 22px;border-radius:999px;background:#1f5c3f;color:#fff;text-decoration:none;font-weight:600}</style></head>
+<body><h1 style="font-size:1.3rem">Ajouter l'appel à votre agenda</h1><p id="t"></p><a class="b" id="a" download="appel-decouverte.ics">Ajouter à mon agenda</a>
+<p style="font-size:.85rem;opacity:.7">Les informations restent dans votre navigateur : elles ne sont envoyées nulle part.</p>
+<script>
+const p=new URLSearchParams(location.hash.slice(1));
+const esc=s=>(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+if(p.get('s')){
+const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ma boite au carre//FR','BEGIN:VEVENT','UID:'+p.get('s')+'-'+Math.random().toString(36).slice(2)+'@maboiteaucarre',
+'DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART:'+p.get('s'),'DTEND:'+p.get('e'),'SUMMARY:'+esc(p.get('t')),'DESCRIPTION:'+esc(p.get('d')),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+const u=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+document.getElementById('a').href=u;document.getElementById('t').textContent=p.get('t');
+setTimeout(()=>document.getElementById('a').click(),300);
+}else{document.getElementById('t').textContent='Lien incomplet.';}
+</script></body></html>

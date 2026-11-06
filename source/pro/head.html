@@ -1,0 +1,472 @@
+<title>Ma boîte au carré Pro</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Direction : page claire et aérée, grand titre, un seul message par écran,
+   cadre à filets fins, petites étiquettes en police technique, photos arrondies. */
+:root{
+  --bg:#F5F5F7; --surface:#FFFFFF; --ink:#1C1D22; --muted:#6A6C75; --line:#DCDDE2;
+  --green:#1F5C3F; --green-2:#2E7D55; --green-soft:#E4EEE8; --on-green:#FFFFFF; --chip:#FFFFFFD9;
+  --f-sans:'Onest','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --r:22px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111412; --surface:#1A1E1B; --ink:#EEF1EE; --muted:#9BA59F; --line:#2B322D;
+  --green:#7BCB9F; --green-2:#2E7D55; --green-soft:#1D2A22; --on-green:#0C140F; --chip:#1A1E1BD9; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111412; --surface:#1A1E1B; --ink:#EEF1EE; --muted:#9BA59F; --line:#2B322D;
+  --green:#7BCB9F; --green-2:#2E7D55; --green-soft:#1D2A22; --on-green:#0C140F; --chip:#1A1E1BD9; color-scheme:dark}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:linear-gradient(var(--surface) 0,var(--bg) 700px) var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,p,ul,ol{margin:0}
+h1,h2,h3{font-weight:400;letter-spacing:-.035em;line-height:1.04;text-wrap:balance}
+h1{font-size:clamp(2.5rem,6.6vw,5.2rem);letter-spacing:-.045em}
+h2{font-size:clamp(2rem,4.6vw,3.4rem)}
+h3{font-size:1.3rem;font-weight:500;letter-spacing:-.02em;line-height:1.2}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:6px}
+.mono,.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.eyebrow::before{content:"";display:inline-block;width:8px;height:8px;background:var(--green);margin-right:10px;border-radius:2px}
+.lead{font-size:clamp(1.1rem,2vw,1.35rem);color:var(--muted);max-width:34em;line-height:1.5}
+
+/* cadre à filets fins */
+.frame{max-width:1240px;margin:0 auto;}
+.sec{padding:clamp(56px,9vw,112px) clamp(20px,5vw,64px)}
+.sec.tight{padding-block:clamp(36px,6vw,64px)}
+
+/* logo */
+.logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.logo i{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:30px}
+.logo i b{display:block;height:13px;background:var(--ink);border-radius:2px}
+.logo i b:nth-child(2),.logo i b:nth-child(3){background:var(--green)}
+.logo span{font-weight:700;font-size:.95rem;line-height:1.05;letter-spacing:-.01em}
+
+/* boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;border:0;cursor:pointer;text-decoration:none;font:inherit;font-weight:600;
+  font-size:1.05rem;min-height:58px;padding:0 30px;border-radius:999px;background:var(--ink);color:var(--bg);transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.green{background:var(--green);color:var(--on-green)}
+.btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.sm{min-height:44px;padding:0 20px;font-size:.92rem}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* en-tête */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.top .in{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px clamp(4px,3vw,40px)}
+.top nav{display:flex;gap:30px;font-size:.95rem;font-weight:500}
+.top nav a{text-decoration:none;color:var(--muted)}.top nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding-bottom:clamp(28px,5vw,56px);text-align:center;display:grid;justify-items:center}
+.hero .lead{margin-inline:auto}
+.hero .eyebrow{display:block;margin-bottom:28px}
+.hero .lead{margin-top:26px}
+.hero .cta{margin-top:38px;justify-content:center;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.hero .cta .mono{color:var(--muted)}
+.shot{position:relative;border-radius:var(--r);overflow:hidden;background:var(--green-soft)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+
+.strip{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;max-width:980px;margin:0 auto;padding:0 clamp(20px,5vw,64px) clamp(56px,9vw,112px)}
+.strip .shot{aspect-ratio:4/5;border-radius:26px}
+.strip .shot img{object-position:50% 22%}
+.statcard{border-radius:26px;background:var(--surface);box-shadow:0 1px 0 var(--line),0 20px 50px #0000000a;padding:clamp(24px,3vw,40px);display:grid;align-content:space-between;gap:24px}
+.statcard dl{margin:0;display:grid;gap:0}
+.statcard dl div{padding:18px 0;border-top:1px solid var(--line)}
+.statcard dt{font-size:clamp(2.2rem,4vw,3.4rem);letter-spacing:-.04em;line-height:1;font-weight:400}
+.statcard dd{margin:8px 0 0;font-family:var(--f-mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.chip{position:absolute;background:var(--chip);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:14px;padding:12px 16px;display:flex;gap:12px;align-items:center;font-weight:600;font-size:.95rem;box-shadow:0 8px 28px #0000001f}
+.chip .ok{width:26px;height:26px;border-radius:8px;background:var(--green);color:var(--on-green);display:grid;place-items:center;flex:none}
+.chip .ok svg{width:16px;height:16px}
+.chip small{display:block;font-family:var(--f-mono);font-size:.68rem;color:var(--muted);font-weight:500;letter-spacing:.04em}
+.chip.a{left:16px;bottom:20px}
+.chip.b{right:16px;top:20px}
+
+/* titres de section */
+.sh{display:grid;gap:18px;max-width:780px;margin:0 auto clamp(36px,6vw,64px);text-align:center;justify-items:center}
+.steps .sh,.about .sh{margin-inline:0;text-align:left;justify-items:start}
+.sh h2 em{font-style:normal;color:var(--green)}
+.sh h2{font-size:clamp(1.9rem,4.2vw,3.1rem)}
+.sh .sub{color:var(--muted);font-size:1.15rem;max-width:36em}
+
+/* grilles à filets (reconnaissance / gestes) */
+.cells{display:grid;gap:16px}
+.cells.c2{grid-template-columns:1fr 1fr}
+.cells.c4{grid-template-columns:repeat(4,1fr)}
+.cell{padding:clamp(26px,3vw,38px);display:grid;gap:16px;align-content:start;background:var(--surface);border-radius:26px;box-shadow:0 1px 0 var(--line),0 20px 50px #0000000a}
+.cell .n{font-family:var(--f-mono);font-size:.8rem;color:var(--green);font-weight:500}
+.cell p{color:var(--muted);font-size:1rem}
+.cell.big p{color:var(--ink);font-size:1.25rem;line-height:1.35;font-weight:400;letter-spacing:-.01em}
+.cell svg.ic{width:40px;height:40px;color:var(--green)}
+.after{margin-top:34px;justify-content:center;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center}
+.also{margin-top:16px;display:flex;gap:16px;align-items:center;background:var(--green);color:var(--on-green);border-radius:var(--r);padding:22px 28px;font-weight:600}
+.also svg{width:30px;height:30px;flex:none}
+
+/* étapes */
+.steps{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,6vw,80px);align-items:start}
+.steps .shot{aspect-ratio:1/1;position:sticky;top:96px;border-radius:26px}
+.steps ol{list-style:none;padding:0;display:grid;counter-reset:s}
+.steps li{display:grid;grid-template-columns:64px 1fr;gap:6px;padding:26px 0;border-top:1px solid var(--line);counter-increment:s}
+.steps li:last-child{border-bottom:1px solid var(--line)}
+.steps li::before{content:"0" counter(s);font-family:var(--f-mono);color:var(--green);font-weight:500;padding-top:4px;font-size:.9rem}
+.steps li p{color:var(--muted);font-size:1.02rem;margin-top:6px}
+.steps li b{font-weight:600;color:var(--green)}
+
+/* formules */
+.offers{display:grid;grid-template-columns:1.15fr 1fr;gap:20px}
+.offer{background:var(--surface);box-shadow:0 1px 0 var(--line),0 20px 50px #0000000a;border-radius:26px;padding:clamp(26px,3.4vw,42px);display:grid;gap:20px;align-content:start}
+.offer.main{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.offer .tagl{justify-self:start;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;background:var(--green-soft);color:var(--green);font-weight:500}
+.offer.main .tagl{background:#ffffff26;color:var(--on-green)}
+.offer h3{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:400;letter-spacing:-.035em}
+.offer p.d{opacity:.78}
+.offer ul{list-style:none;padding:0;display:grid;gap:0}
+.offer li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid color-mix(in srgb,currentColor 18%,transparent)}
+.offer li svg{flex:none;width:20px;height:20px;margin-top:4px;color:var(--green)}
+.offer.main li svg{color:var(--on-green)}
+.offer .price{font-weight:600;font-size:1.15rem;padding-top:6px}
+
+/* à propos */
+.about{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,6vw,80px);align-items:center}
+.about .shot{aspect-ratio:4/5;border-radius:26px}
+.about .shot img{object-position:50% 20%}
+.about p{color:var(--muted);font-size:1.12rem}
+.about p+p{margin-top:16px}
+.specs{margin-top:32px;border-top:1px solid var(--line)}
+.specs div{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid var(--line);font-weight:500}
+.specs div span:first-child{font-family:var(--f-mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+
+/* faq */
+.faq{max-width:860px;margin:0 auto}
+.faq details{border-top:1px solid var(--line);padding:24px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font-size:1.3rem;font-weight:400;letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-mono);font-weight:400;color:var(--green);font-size:1.5rem;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin-top:12px;max-width:60ch}
+
+/* appel final */
+.final{border-radius:30px;background:var(--green);color:var(--on-green);padding:clamp(34px,6vw,72px);display:flex;flex-wrap:wrap;gap:28px 48px;align-items:center;justify-content:space-between}
+.final .mono{color:inherit;opacity:.75}
+.final h2{margin-top:14px;max-width:12em}
+.final .btn{background:var(--on-green);color:var(--green)}
+.final-wrap{padding:0 clamp(20px,5vw,64px) clamp(40px,6vw,80px)}
+.final .btn{white-space:nowrap}
+footer{max-width:1240px;margin:0 auto;border-top:1px solid var(--line);padding:28px clamp(20px,5vw,64px);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;font-size:.88rem;color:var(--muted)}
+
+/* ===== questionnaire / résultat / merci ===== */
+.view{max-width:1240px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(20px,5vw,64px) 96px;min-height:75vh}
+.view .wrap{max-width:780px;margin:0 auto}
+.prog{display:flex;gap:6px;margin-bottom:40px}
+.prog i{flex:1;height:5px;background:var(--line);border-radius:5px}
+.prog i.on{background:var(--green)}
+.q-meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.hand{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);letter-spacing:.04em}
+.q-title{font-size:clamp(1.9rem,5vw,3rem);margin-bottom:34px;font-weight:400}
+.opts{display:grid;gap:12px}
+.opt{display:flex;align-items:center;gap:18px;text-align:left;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:20px 22px;font:inherit;font-weight:500;font-size:1.05rem;cursor:pointer;min-height:66px;transition:border-color .12s,background .12s,transform .12s}
+.opt:hover{border-color:var(--ink);transform:translateY(-1px)}
+.opt .box{flex:none;width:24px;height:24px;border:1.5px solid var(--muted);border-radius:50%}
+.opt[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.opt[aria-pressed="true"] .box{background:var(--on-green);border-color:var(--on-green)}
+.back{margin-top:24px;background:none;border:0;color:var(--muted);font:inherit;font-weight:500;cursor:pointer;padding:10px 0}
+.back:hover{color:var(--ink)}
+.gauge{display:flex;gap:8px;margin:26px 0 14px}
+.gauge i{width:56px;height:14px;border-radius:7px;background:var(--line)}
+.gauge i.on{background:var(--green)}
+.score{font-family:var(--f-mono);font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.res-card{background:var(--surface);box-shadow:0 1px 0 var(--line),0 20px 50px #0000000a;border-radius:26px;padding:clamp(24px,3.4vw,38px);margin-top:28px;display:grid;gap:16px}
+.res-card ul{list-style:none;padding:0;display:grid;gap:12px}
+.res-card li{display:flex;gap:12px}
+.res-card li svg{flex:none;width:20px;height:20px;color:var(--green);margin-top:4px}
+form{display:grid;gap:20px;margin-top:36px;background:var(--surface);box-shadow:0 1px 0 var(--line),0 20px 50px #0000000a;border-radius:26px;padding:clamp(24px,3.4vw,40px)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+label,.lbl{display:grid;gap:8px;font-weight:600;font-size:.95rem}
+input[type=text],input[type=tel],input[type=email]{font:inherit;font-weight:400;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:0 16px;min-height:56px;width:100%}
+input[type=text]:focus,input[type=tel]:focus,input[type=email]:focus{outline:2px solid var(--green);border-color:var(--green)}
+.slots{display:flex;flex-wrap:wrap;gap:10px}
+.slots label{display:block;position:relative}
+.slots input{position:absolute;opacity:0;pointer-events:none}
+.slots span{display:block;border:1px solid var(--line);border-radius:999px;padding:13px 20px;cursor:pointer;font-weight:500;background:var(--bg)}
+.slots input:checked+span{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.slots input:focus-visible+span{outline:3px solid var(--green);outline-offset:3px}
+.consent{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:.9rem;color:var(--muted)}
+.consent input{width:22px;height:22px;margin-top:2px;accent-color:var(--green);flex:none}
+.err{color:#B3261E;font-weight:600;font-size:.9rem;min-height:1.2em}
+:root[data-theme="dark"] .err{color:#FF8A80}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#FF8A80}}
+.demo{background:var(--green-soft);border-radius:14px;padding:16px 20px;font-size:.95rem;margin-top:20px}
+.sub{color:var(--muted)}
+
+@media (max-width:900px){
+  .hero,.steps,.about,.offers{grid-template-columns:1fr}
+  .steps .shot{position:static;order:-1;aspect-ratio:4/3}
+  .cells.c4{grid-template-columns:1fr 1fr}
+  .top nav{display:none}
+}
+@media (max-width:560px){
+  body{font-size:17px}
+  .cells.c2,.cells.c4,.row{grid-template-columns:1fr}
+  .top .btn.sm{padding:0 14px;font-size:.82rem}
+  .logo span{font-size:.85rem}
+  .gauge i{width:44px}
+  .strip{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* ===== finitions et mouvement (règles Emil Kowalski : courbes fortes, transform/opacity, pas de boucles décoratives) ===== */
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.prog-scroll{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--green);z-index:40}
+/* boutons : retour immédiat à la pression */
+.btn{transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease}
+.btn:hover{transform:none}
+.btn:active{transform:scale(0.97)}
+.btn svg{transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .btn.green:hover{background:var(--green-2)}
+  .btn:hover svg{transform:translateX(3px)}
+  .cell,.statcard{transition:box-shadow 250ms ease}
+  .cell:hover,.statcard:hover{box-shadow:0 1px 0 var(--line),0 24px 56px #00000012}
+  .top nav a{transition:color 200ms ease}
+}
+.opt{transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease,transform 160ms var(--ease-out)}
+.opt:hover{transform:none}
+.opt:active{transform:scale(0.98)}
+/* étapes : l'étape en cours est mise en avant */
+.steps li::before{transition:color 200ms ease}
+.js-motion .steps li:not(.on)::before{color:var(--muted)}
+/* cartes à halo (inspiré de React Bits « SpotlightCard ») */
+.spot{position:relative;isolation:isolate;overflow:hidden}
+.spot .sc-light,.spot .sc-edge{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0}
+.spot .sc-light{z-index:-1}
+.spot .sc-edge{z-index:1;padding:1px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.statcard dt{font-variant-numeric:tabular-nums}
+/* titre qui s'allume mot à mot (inspiré de React Bits « ScrollReveal ») */
+.sr-w{display:inline-block}
+</style>
+
+<div class="prog-scroll" id="ps"></div>
+<header class="top"><div class="in">
+  <a class="logo" href="#" data-home><i><b></b><b></b><b></b><b></b></i><span>Ma boîte<br>au carré</span></a>
+  <nav><a href="#methode" data-anchor>Ma méthode</a><a href="#deroule" data-anchor>Le déroulé</a><a href="#formules" data-anchor>Les formules</a><a href="#faq" data-anchor>Questions</a></nav>
+  <button class="btn sm" type="button" data-start>Faire mon diagnostic</button>
+</div></header>
+
+<!-- ============ ACCUEIL ============ -->
+<main id="landing"><div class="frame">
+
+<section class="sec hero">
+  <div>
+    <span class="eyebrow">Remise en ordre administrative pour TPE</span>
+    <h1>Votre administratif remis au carré, pour de bon.</h1>
+    <p class="lead">Tri, classement, archivage, méthode. Je viens dans vos bureaux ou je travaille à distance, partout en France, et je prépare les pièces pour votre comptable.</p>
+    <div class="cta">
+      <button class="btn green" type="button" data-start>Faire mon diagnostic <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+      <span class="mono">6 questions · 2 minutes</span>
+    </div>
+  </div>
+</section>
+
+<div class="strip rvgrp">
+  <div class="shot"><img src="{{IMG_CALL}}" alt="Laure au téléphone à son bureau, un carnet Sur place / à distance ouvert devant elle" loading="lazy"></div>
+  <div class="statcard">
+    <span class="eyebrow">En chiffres</span>
+    <dl><div><dt data-count="20">20 ans</dt><dd>d'expérience administrative</dd></div><div><dt data-count="15">15 min</dt><dd>pour votre appel découverte</dd></div><div><dt>France</dt><dd>sur place ou à distance</dd></div></dl>
+  </div>
+</div>
+
+<section class="sec" id="reco">
+  <div class="sh">
+    <span class="eyebrow">Vous vous reconnaissez ?</span>
+    <h2 id="srh">Vous avez créé votre entreprise pour exercer votre métier, <em>pas pour remplir des papiers.</em></h2>
+  </div>
+  <div class="cells c2">
+    <div class="cell big"><span class="n">01</span><p>Votre comptable vous réclame des pièces et vous ne savez plus où elles sont.</p></div>
+    <div class="cell big"><span class="n">02</span><p>Vos factures vivent dans trois endroits : classeurs, boîte mail, tiroir.</p></div>
+    <div class="cell big"><span class="n">03</span><p>Retrouver un devis ou un contrat prend plus de deux minutes.</p></div>
+    <div class="cell big"><span class="n">04</span><p>Vous repoussez l'administratif au dimanche soir, ou au mois prochain.</p></div>
+  </div>
+  <div class="after">
+    <button class="btn green" type="button" data-start>Mesurer où j'en suis</button>
+    <span class="mono">Je range, j'organise, vous respirez.</span>
+  </div>
+</section>
+
+<section class="sec" id="methode">
+  <div class="sh">
+    <span class="eyebrow">Ce que je fais pour vous</span>
+    <h2>Quatre gestes, <em>une méthode que vous gardez.</em></h2>
+    <p class="sub">Je ne range pas à votre place pour que tout redevienne désordonné dans trois mois. Je mets en place un système simple, adapté à votre façon de travailler.</p>
+  </div>
+  <div class="cells c4">
+    <div class="cell"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h16"/></svg><h3>Tri</h3><p>Chaque document est sorti, regardé, trié. Ce qui compte reste, le reste s'en va.</p></div>
+    <div class="cell"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="6" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg><h3>Classement</h3><p>Perforation, classeurs étiquetés, rubriques claires : vous retrouvez tout en deux minutes.</p></div>
+    <div class="cell"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="4" rx="1"/><path d="M5 9v10h14V9M10 13h4"/></svg><h3>Archivage</h3><p>Les années passées sont datées, mises en boîtes et rangées à leur place.</p></div>
+    <div class="cell"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.5 2.6 4.5-5.3"/></svg><h3>Méthode</h3><p>Une façon simple de classer au quotidien, pensée pour votre activité.</p></div>
+  </div>
+  <div class="also">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 12h7M9 16h7"/></svg>
+    <span>Et je rassemble vos pièces comptables pour les envoyer à votre comptable.</span>
+  </div>
+</section>
+
+<section class="sec" id="deroule">
+  <div class="steps">
+    <div class="shot"><img src="{{IMG_TRAYS}}" alt="Laure prépare les pièces d'un client : une boîte Pour le comptable, une boîte À classer, des notes repositionnables et une calculatrice" loading="lazy"></div>
+    <div>
+      <div class="sh" style="margin-bottom:28px"><span class="eyebrow">Comment ça se passe</span><h2>De l'appel au bureau en ordre.</h2></div>
+      <ol>
+        <li><div><h3>Appel découverte</h3><p>15 minutes pour comprendre votre situation et voir si je peux vous aider.</p></div></li>
+        <li><div><h3>Visite sur place</h3><p>Je passe voir vos bureaux et j'évalue la quantité de travail.</p></div></li>
+        <li><div><h3>Devis forfaitaire</h3><p>Un prix global sur mesure, sans tarif horaire à compter. <b>Contactez-moi pour un devis personnalisé.</b></p></div></li>
+        <li><div><h3>Remise au carré</h3><p>J'interviens dans vos locaux, d'une semaine à un mois selon le volume.</p></div></li>
+        <li><div><h3>Suivi, si vous le souhaitez</h3><p>Une ou deux journées par semaine pour garder votre administratif à jour.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="formules">
+  <div class="sh"><span class="eyebrow">Les formules</span><h2>Ponctuel ou régulier, <em>vous choisissez.</em></h2></div>
+  <div class="offers">
+    <div class="offer main spot">
+      <span class="tagl">Pour commencer</span>
+      <h3>La remise au carré</h3>
+      <p class="d">L'intervention qui remet tout en ordre, sur place, avec un devis forfaitaire après une visite.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Tri, perforation et mise en classeurs</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Classement et archivage</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Méthode de travail simple, que vous gardez</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Réorganisation du bureau si besoin</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Pièces comptables prêtes pour votre comptable</li>
+      </ul>
+      <p class="price">Sur devis personnalisé</p>
+    </div>
+    <div class="offer spot">
+      <span class="tagl">En option ensuite</span>
+      <h3>Le suivi</h3>
+      <p class="d">Pour garder votre administratif à jour, semaine après semaine.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Une ou deux journées par semaine</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Sur place ou à distance, demi-journée possible</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Préparation des pièces pour le comptable</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Tâches administratives courantes</li>
+      </ul>
+      <p class="price">Vous arrêtez quand vous voulez</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="about">
+    <div class="shot"><img src="{{IMG_DOOR}}" alt="Laure à l'entrée d'un bureau, un classeur vert Factures sous le bras" loading="lazy"></div>
+    <div>
+      <span class="eyebrow">Qui je suis</span>
+      <h2 style="margin:20px 0 26px">Je connais les deux côtés du bureau.</h2>
+      <p>Depuis 20 ans, je travaille dans la gestion administrative : secrétaire comptable, assistante comptable, assistante de gestion, et aujourd'hui dirigeante d'entreprise.</p>
+      <p>Je sais ce que votre comptable attend, et je sais ce que c'est de gérer son entreprise avec peu de temps. Je vous propose une méthode simple, adaptée à votre façon de travailler, pas l'inverse.</p>
+      <div class="specs">
+        <div><span>Expérience</span><span>20 ans</span></div>
+        <div><span>Accompagnées</span><span>3 PME et 1 étude notariale</span></div>
+        <div><span>Où</span><span>Partout en France</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="sh"><span class="eyebrow">Questions fréquentes</span><h2>Ce que l'on me demande souvent.</h2></div>
+  <div class="faq">
+    <details><summary>Pour quelles entreprises ?</summary><p>Surtout les TPE : artisans, métiers du bâtiment, architectes, petites PME. Toute entreprise dont l'administratif a pris du retard peut en profiter.</p></details>
+    <details><summary>Combien de temps dure une remise au carré ?</summary><p>D'une semaine à un mois, selon la quantité de documents. Je l'estime lors de ma visite et vous la lisez sur le devis.</p></details>
+    <details><summary>Le matériel est-il fourni ?</summary><p>Les classeurs, trieurs et boîtes d'archives sont à votre charge. Je vous indique ce qu'il faut et je l'écris clairement sur le devis.</p></details>
+    <details><summary>Intervenez-vous à distance ?</summary><p>Oui, pour le suivi et la préparation des pièces. La remise au carré se fait dans vos locaux, partout en France.</p></details>
+    <details><summary>Et après la remise au carré ?</summary><p>Vous gardez la méthode et vous pouvez continuer seul. Si vous le souhaitez, je propose un suivi d'une ou deux journées par semaine.</p></details>
+  </div>
+</section>
+
+<div class="final-wrap"><div class="final">
+  <div><span class="mono">Votre administratif vous pèse ? Parlons-en.</span><h2>Faites le point en 2 minutes.</h2></div>
+  <button class="btn" type="button" data-start>Faire mon diagnostic <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+</div></div>
+
+</div></main>
+
+<!-- ============ QUESTIONS ============ -->
+<main class="view" id="quiz" hidden><div class="wrap">
+  <div class="prog" id="prog" aria-hidden="true"></div>
+  <div class="q-meta"><span class="eyebrow" id="qcount"></span><span class="hand" id="qhand"></span></div>
+  <h2 class="q-title" id="qtitle" tabindex="-1"></h2>
+  <div class="opts" id="opts" role="group" aria-labelledby="qtitle"></div>
+  <button class="back" type="button" id="back">← Question précédente</button>
+</div></main>
+
+<!-- ============ RÉSULTAT + FORMULAIRE ============ -->
+<main class="view" id="result" hidden><div class="wrap">
+  <span class="eyebrow">Votre résultat</span>
+  <h2 id="rtitle" style="margin:18px 0 0" tabindex="-1"></h2>
+  <div class="gauge" id="gauge" aria-hidden="true"></div>
+  <p class="score" id="rscore"></p>
+  <div class="res-card">
+    <p id="rtext"></p>
+    <h3 id="rprio-h"></h3>
+    <ul id="rlist"></ul>
+  </div>
+
+  <form id="lead" novalidate>
+    <div>
+      <span class="eyebrow">Étape suivante</span>
+      <h2 style="font-size:clamp(1.6rem,3.6vw,2.3rem);margin-top:16px">Réservez votre appel découverte de 15 minutes.</h2>
+      <p class="sub" style="margin-top:12px">Laissez-moi vos coordonnées, je vous rappelle pour comprendre votre situation. Sans engagement.</p>
+    </div>
+    <div class="row">
+      <label for="f-name">Prénom<input id="f-name" name="prenom" type="text" autocomplete="given-name" required></label>
+      <label for="f-job">Votre activité<input id="f-job" name="activite" type="text" placeholder="Plombier, architecte, boutique…" required></label>
+    </div>
+    <div class="row">
+      <label for="f-tel">Téléphone<input id="f-tel" name="telephone" type="tel" autocomplete="tel" inputmode="tel" required></label>
+      <label for="f-mail">E-mail <span style="font-weight:400;color:var(--muted)">(facultatif)</span><input id="f-mail" name="email" type="email" autocomplete="email"></label>
+    </div>
+    <div class="lbl" role="group" aria-labelledby="slots-l"><span id="slots-l">Quand puis-je vous appeler ?</span>
+      <div class="slots">
+        <label><input type="radio" name="creneau" value="Matin" checked><span>Le matin</span></label>
+        <label><input type="radio" name="creneau" value="Midi"><span>Le midi</span></label>
+        <label><input type="radio" name="creneau" value="Fin d'après-midi"><span>Fin d'après-midi</span></label>
+      </div>
+    </div>
+    <label class="consent" for="f-ok"><input id="f-ok" type="checkbox" required><span>J'accepte d'être recontacté(e) par Ma boîte au carré au sujet de ma demande. Mes informations ne sont utilisées que pour cela.</span></label>
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn green" type="submit" id="send" style="justify-self:start">Je veux être rappelé(e) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+  </form>
+</div></main>
+
+<!-- ============ MERCI ============ -->
+<main class="view" id="thanks" hidden><div class="wrap">
+  <span class="eyebrow">C'est noté</span>
+  <h2 id="tt" style="margin:18px 0 18px" tabindex="-1">Merci !</h2>
+  <p class="sub" id="tp" style="font-size:1.15rem"></p>
+  <div class="demo" id="demo" hidden></div>
+  <div class="res-card">
+    <h3>En attendant mon appel</h3>
+    <ul>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Repérez les trois endroits où se trouvent vos documents aujourd'hui.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Notez la question que votre comptable vous pose le plus souvent.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l5 5L19.5 7"/></svg>Préparez ce qui vous fait le plus perdre de temps : je commencerai par là.</li>
+    </ul>
+  </div>
+  <p style="margin-top:30px"><button class="btn line sm" type="button" data-home>Retour à l'accueil</button></p>
+</div></main>
+
+<footer><span>Ma boîte au carré · DUB13 SAS · maboiteaucarre.pro</span><span>Remise en ordre administrative pour TPE, partout en France</span></footer>
+
