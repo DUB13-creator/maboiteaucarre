@@ -506,11 +506,11 @@ const CONFIDENTIALITE = ({ dialog }) => (<>
   <p>DUB13, SAS (nom commercial : Ma boîte au carré), dont les coordonnées figurent dans les {dialog ? 'mentions légales (en bas de page)' : <a href="#mentions-legales" data-legal="mentions">mentions légales</a>}. Pour toute question sur vos données : <a href="mailto:jeuxdub@gmail.com">jeuxdub@gmail.com</a>.</p>
   <h3>Quelles données sont collectées ?</h3>
   <p>Le diagnostic se déroule uniquement dans votre navigateur : tant que vous n'envoyez pas le formulaire, aucune de vos réponses n'est transmise ni enregistrée.</p>
-  <p>Si vous demandez un appel découverte, je collecte : votre prénom, votre nom, votre activité, votre numéro de téléphone, votre adresse e-mail, le créneau de rappel que vous préférez, ainsi que le résultat de votre diagnostic (score, niveau et priorité).</p>
+  <p>Si vous demandez un appel découverte, je collecte : votre prénom, votre nom, votre activité, votre numéro de téléphone, votre adresse e-mail, le créneau de rappel que vous préférez, ainsi que le résultat de votre diagnostic (score, niveau et priorité). Le service qui transmet le formulaire y ajoute automatiquement votre adresse IP, qui figure dans l'e-mail que je reçois.</p>
   <h3>Pourquoi, et sur quelle base légale ?</h3>
   <p>Ces données servent uniquement à vous rappeler pour l'appel découverte de 15 minutes et à préparer cet échange. Elles sont traitées sur la base de votre consentement, que vous donnez en cochant la case du formulaire et que vous pouvez retirer à tout moment. Elles ne sont ni vendues, ni utilisées pour de la publicité.</p>
   <h3>Qui y a accès ?</h3>
-  <p>Seule DUB13 y a accès. Pour faire fonctionner le site, elle s'appuie sur deux prestataires techniques : l'hébergeur du site (GitHub, Inc.) et le service en ligne qui transmet les demandes du formulaire par e-mail (Web3Forms). Ces prestataires n'utilisent pas vos données pour leur propre compte.</p>
+  <p>Seule DUB13 y a accès. Pour faire fonctionner le site, elle s'appuie sur deux prestataires techniques : l'hébergeur du site (GitHub, Inc.) et le service en ligne qui transmet les demandes du formulaire par e-mail (Web3Forms). La demande m'est ensuite adressée dans ma messagerie. Ces prestataires n'utilisent pas vos données pour leur propre compte.</p>
   <p>L'hébergeur peut enregistrer des données techniques de connexion (adresse IP, date et heure) lorsque vous consultez le site.</p>
   <h3>Transferts hors de l'Union européenne</h3>
   <p>Ces deux prestataires sont des sociétés américaines ou peuvent traiter des données hors de l'Union européenne, notamment aux États-Unis. Ces transferts sont encadrés par les garanties prévues par le RGPD (décision d'adéquation de la Commission européenne ou clauses contractuelles types).</p>
